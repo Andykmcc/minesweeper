@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="vendor/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="vendor/underscore.js"></script>
+    <script type="text/javascript" src="vendor/angular.min.js"></script>
+    <script type="text/javascript" src="minesweeper.js"></script>
+    <style>
+        body {
+            background: #c0c0c0;
+            font-family: helvetica;
+            font-size: 12px;
+        }
+        td img {
+            display: block;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        .head {
+            display: flex;
+        }
+        .head > * {
+            flex-grow: 1;
+        }
+        .menu, .content {
+            margin: 0 auto;
+        }
+    </style>
+    <title>Minesweeper</title>
+ </head>
+ <body ng-app="minesweeper">
+    <div class="container" ng-controller="MinesweeperController">
+         <div class="content">
+             <div class="head">
+                 <number value="board.mineCount - board.flags.length"></number>
+                 <div>
+                    <img ng-click="newGame()" ng-src="images/{{board.face}}.gif"/>
+                </div>
+                 <number value="timeTaken"></number>
+            </div>
+            <table cellpadding="0" cellspacing="0">
+                <tr ng-repeat="row in board.rows">
+                    <td ng-repeat="tile in row"
+                        ng-mousedown="board.pressTile()"
+                        ng-mouseup="board.clickTile($event, tile)"
+                        oncontextmenu="return false"><img ng-src="{{tile.getSrc()}}"/></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+ </body>
+</html>
