@@ -93,9 +93,11 @@ Board.prototype.clickTile = function(evt, tile) {
             _.each(this.flags, function(flagTile) {
                 if (!_.contains(this.mines, flagTile)) {
                     flagTile.value = 'bombmisflagged';
+                    flagTile.hidden = false;
+                } else {
+                    flagTile.hidden = true;
                 }
-                flagTile.hidden = false;
-            });
+            }, this);
         } else if (tile.value === 'open0') {
             _.each(this.getAdjacentTiles(tile.x, tile.y), function(adjTile) {
                 this.clickTile(evt, adjTile, adjTile);
